@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Presupuesto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .form-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: #45a049;
+        }
+        
+        .resumen {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .card h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .valor {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .ingreso { color: #4CAF50; }
+        .gasto { color: #f44336; }
+        .balance { color: #2196F3; }
+        
+        .seccion {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .seccion h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        #movimientos div {
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+        
+        #movimientos .ingreso {
+            background: #e8f5e8;
+            border-left-color: #4CAF50;
+        }
+        
+        #movimientos .gasto {
+            background: #ffeaea;
+            border-left-color: #f44336;
+        }
+        
+        .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Control de Presupuesto Personal</h1>
+        
+        <!-- Formulario para agregar movimientos -->
+        <div class="form-section">
+            <h2>Agregar Movimiento</h2>
+            <form id="form">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="tipo">Tipo:</label>
+                        <select id="tipo" required>
+                            <option value="">Seleccionar</option>
+                            <option value="ingreso">💵 Ingreso</option>
+                            <option value="gasto">💸 Gasto</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nombre">Descripción:</label>
+                        <input type="text" id="nombre" placeholder="Ej: Salario, Compras..." required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="valor">Valor:</label>
+                        <input type="number" id="valor" placeholder="0.00" step="0.01" min="0" required>
+                    </div>
+                </div>
+                
+                <button type="submit">Agregar Movimiento</button>
+            </form>
+        </div>
+        
+        <!-- Resumen financiero -->
+        <div class="resumen">
+            <div class="card">
+                <h3>💰 Total Ingresos</h3>
+                <div class="valor ingreso" id="totalIngresos">$0</div>
+            </div>
+            
+            <div class="card">
+                <h3>💸 Total Gastos</h3>
+                <div class="valor gasto" id="totalGastos">$0</div>
+            </div>
+            
+            <div class="card">
+                <h3>📊 Balance</h3>
+                <div class="valor balance" id="balance">$0</div>
+            </div>
+        </div>
+        
+        <!-- Análisis -->
+        <div class="seccion">
+            <h2>📈 Análisis</h2>
+            <div id="analisis">No hay datos para analizar</div>
+        </div>
+        
+        <!-- Lista de movimientos -->
+        <div class="seccion">
+            <h2>📋 Historial de Movimientos</h2>
+            <div id="movimientos">No hay movimientos registrados</div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
